@@ -10,10 +10,11 @@ Este é o documento de trabalho. Tudo aqui é hipótese para conversar, não com
 
 | Documento | Papel | Quando usar |
 |---|---|---|
-| **04-mvp-matriz.md** (este) | Matriz enxuta do MVP: 17 requisitos, 90 especificações | Agora, no discovery |
+| **04-mvp-matriz.md** (este) | Matriz enxuta do MVP: 17 requisitos (M1 a M17), 90 especificações | Agora, no discovery |
 | [03-registro-decisoes.md](03-registro-decisoes.md) | Hipóteses sobre as quatro decisões mais estruturantes | Como insumo de discussão |
 | [02-matriz-decisao-egresso.md](02-matriz-decisao-egresso.md) | Como o egresso se comporta em cada classe de conteúdo | Quando for desenhar o egresso |
 | [01-catalogo-requisitos.md](01-catalogo-requisitos.md) | Catálogo completo: 40 requisitos, ~349 especificações | Fase 2 e 3, como referência |
+| [05-analise-de-gaps.md](05-analise-de-gaps.md) | Auditoria deste documento e do catálogo: 16 gaps priorizados | Antes de rever escopo ou numeração |
 
 O catálogo completo não é escopo. Ele existe para garantir que nada importante seja esquecido quando o MVP crescer. No dia a dia do discovery, use este documento.
 
@@ -34,36 +35,38 @@ Quatro, e só quatro.
 
 | ID | Requisito | Papel no MVP | Por que está aqui |
 |---|---|---|---|
-| R1 | Confidencialidade por padrão | Obrigatório | É a razão de existir do projeto |
-| R2 | Consulta externa auditada | Obrigatório | É o diferencial de "parcialmente online" |
-| R3 | Registro e auditoria | Obrigatório | Sem trilha não há como provar R1 e R2 |
-| R4 | Acesso e permissões | Obrigatório | Não dá para separar acervo sem isso |
-| R5 | Ingestão de documentos | Obrigatório | Nada acontece sem documento entrando |
-| R6 | OCR e extração de texto | Obrigatório | A maior parte do acervo real é digitalizada |
-| R7 | Busca | Obrigatório | Recuperar é pré-requisito de responder |
-| R8 | Resposta com citação | Obrigatório | Resposta sem fonte é passivo, não produto |
-| R9 | Modelo local | Obrigatório | É o motor de tudo |
-| R10 | Qualidade mínima | Obrigatório | Piso, não bateria de metas |
-| R11 | Segurança e isolamento | Obrigatório | Requisito de mesa para qualquer cliente |
-| R12 | Infraestrutura | Obrigatório | Sem hardware definido não há piloto |
-| R13 | Interface | Obrigatório | É o que decide se o usuário adota |
-| R14 | Conformidade básica | Obrigatório | LGPD mínima, sem a qual não se assina |
-| R15 | Modos de implantação | Obrigatório | Define o que se promete ao cliente |
-| R16 | Caso de uso piloto | Obrigatório | MVP sem caso concreto vira demonstração |
-| R17 | Atualização do corpus normativo | Obrigatório | O acervo do cliente tem o contrato, não tem a lei |
+| M1 | Confidencialidade por padrão | Obrigatório | É a razão de existir do projeto |
+| M2 | Consulta externa auditada | Obrigatório | É o diferencial de "parcialmente online" |
+| M3 | Registro e auditoria | Obrigatório | Sem trilha não há como provar M1 e M2 |
+| M4 | Acesso e permissões | Obrigatório | Não dá para separar acervo sem isso |
+| M5 | Ingestão de documentos | Obrigatório | Nada acontece sem documento entrando |
+| M6 | OCR e extração de texto | Obrigatório | A maior parte do acervo real é digitalizada |
+| M7 | Busca | Obrigatório | Recuperar é pré-requisito de responder |
+| M8 | Resposta com citação | Obrigatório | Resposta sem fonte é passivo, não produto |
+| M9 | Modelo local | Obrigatório | É o motor de tudo |
+| M10 | Qualidade mínima | Obrigatório | Piso, não bateria de metas |
+| M11 | Segurança e isolamento | Obrigatório | Requisito de mesa para qualquer cliente |
+| M12 | Infraestrutura | Obrigatório | Sem hardware definido não há piloto |
+| M13 | Interface | Obrigatório | É o que decide se o usuário adota |
+| M14 | Conformidade básica | Obrigatório | LGPD mínima, sem a qual não se assina |
+| M15 | Modos de implantação | Obrigatório | Define o que se promete ao cliente |
+| M16 | Caso de uso piloto | Obrigatório | MVP sem caso concreto vira demonstração |
+| M17 | Atualização do corpus normativo | Obrigatório | O acervo do cliente tem o contrato, não tem a lei |
 
-Dezessete requisitos. Tudo que estava no catálogo e não está aqui é Fase 2 ou 3, e a seção 5 diz onde encontrar.
+Dezessete requisitos próprios do MVP, numerados de M1 a M17. Tudo que estava no catálogo e não está aqui é Fase 2 ou 3, e a seção 5 diz onde encontrar.
 
 ---
 
 ## 4. Requisitos e especificações
 
-Convenção: **E** numera dentro de cada **R**. Marcações:
+Convenção: **E** numera dentro de cada **M**, e **M** é o identificador de requisito deste documento. O catálogo usa **R**. As duas séries são independentes e o identificador carrega o documento de origem: M é sempre da matriz de MVP, R é sempre do catálogo. Uma referência a requisito do catálogo dentro deste arquivo aparece qualificada, como *requisito R12 do catálogo*.
+
+Marcações:
 - sem marca = dentro do MVP
 - **[a validar]** = depende de informação que ainda não temos
 - **[Fase 2]** = registrado para não esquecer, fora do MVP
 
-### R1. Confidencialidade por padrão
+### M1. Confidencialidade por padrão
 
 Se isso falhar, o projeto não tem razão de existir.
 
@@ -74,7 +77,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E5.** Modo air-gapped funciona de ponta a ponta, com instalação e atualização por pacote offline.
 - **E6 [a validar].** Inventário do que conta como "dado do cliente": além do arquivo, entram OCR, trechos, vetores, cache e logs.
 
-### R2. Consulta externa auditada
+### M2. Consulta externa auditada
 
 É o "parcialmente online". Precisa ser visível, autorizado e registrado, sem virar burocracia que o usuário vai contornar.
 
@@ -88,7 +91,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E8.** Resposta de origem externa fica marcada e separada do acervo.
 - **[Fase 2].** Aprovação em camadas por classe, cotas, catálogo com DPA por destino, interruptor de emergência, testes de exfiltração.
 
-### R3. Registro e auditoria
+### M3. Registro e auditoria
 
 - **E1.** Trilha por documento: quem acessou, quando, em qual consulta.
 - **E2.** Trilha por resposta: resposta → trecho → página → documento.
@@ -98,7 +101,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E6 [a validar].** Prazo de retenção do log por vertical.
 - **[Fase 2].** Encadeamento por hash, WORM, integração com SIEM, reconstrução de consulta.
 
-### R4. Acesso e permissões
+### M4. Acesso e permissões
 
 - **E1.** Login corporativo (SSO) e MFA para perfis administrativos.
 - **E2.** Perfis básicos: administrador, curador de acervo, usuário, auditor.
@@ -107,7 +110,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E5.** Desligamento de usuário revoga acesso em prazo curto.
 - **[Fase 2].** RBAC+ABAC completo, delegação, segregação de funções, recertificação periódica.
 
-### R5. Ingestão de documentos
+### M5. Ingestão de documentos
 
 - **E1.** Formatos do MVP: PDF com texto, PDF digitalizado, DOCX, XLSX, MSG/EML, TXT e CSV.
 - **E2.** Entrada por upload na interface e por pasta monitorada.
@@ -117,7 +120,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **[a validar].** Volume inicial do acervo piloto, para dimensionar o resto.
 - **[Fase 2].** XML fiscal, PPT, ODT/ODS, compactados, conectores de GED e e-mail.
 
-### R6. OCR e extração de texto
+### M6. OCR e extração de texto
 
 - **E1.** OCR local com modelo em português.
 - **E2.** Detecção automática entre página com texto e página que exige OCR.
@@ -126,7 +129,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E5 [a validar].** Qualidade mínima aceitável por tipo de documento, calibrada no piloto.
 - **[Fase 2].** Manuscrito, tabela estruturada, re-OCR versionado, métricas por classe documental.
 
-### R7. Busca
+### M7. Busca
 
 - **E1.** Busca por palavra-chave e por sentido, combinadas.
 - **E2.** Filtros por cliente, tipo de documento e período.
@@ -134,7 +137,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E4.** O resultado respeita o que o usuário pode ver, aplicado na própria busca.
 - **[Fase 2].** Reranking, facetas, busca em valores e tabelas, escala acima do volume do piloto.
 
-### R8. Resposta com citação
+### M8. Resposta com citação
 
 - **E1.** Toda resposta aponta o trecho e o documento que a sustenta.
 - **E2.** Clicar na citação abre o documento na página certa.
@@ -143,7 +146,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E5.** Conteúdo de origem externa aparece visualmente distinto.
 - **[Fase 2].** Comparação entre documentos, sumarização com escopo declarado, memória de conversa com política própria.
 
-### R9. Modelo local
+### M9. Modelo local
 
 - **E1.** Modelo de linguagem aberto rodando localmente, com licença compatível com uso comercial.
 - **E2.** Modelo de embedding também local.
@@ -152,7 +155,7 @@ Se isso falhar, o projeto não tem razão de existir.
 - **E5 [a validar].** Qual modelo e qual quantização usar no piloto, decidido por teste no acervo real.
 - **[Fase 2].** Reranker local, modelos especializados, portabilidade ampla de hardware, MLOps.
 
-### R10. Qualidade mínima
+### M10. Qualidade mínima
 
 Piso, não bateria de metas.
 
@@ -163,7 +166,7 @@ Piso, não bateria de metas.
 - **E5 [a validar].** Metas numéricas definidas com o cliente no início do piloto, não antes.
 - **[Fase 2].** Portões formais por tarefa, avaliação contínua, benchmark entre modelos, detecção de deriva.
 
-### R11. Segurança e isolamento
+### M11. Segurança e isolamento
 
 - **E1.** Criptografia em repouso e em trânsito.
 - **E2.** Separação de acervo por cliente, com teste que tenta o acesso cruzado.
@@ -171,14 +174,14 @@ Piso, não bateria de metas.
 - **E4.** Chaves gerenciadas no ambiente do cliente.
 - **[Fase 2].** Segregação de segredo de justiça, instância dedicada, DLP, destruição criptográfica.
 
-### R12. Infraestrutura
+### M12. Infraestrutura
 
 - **E1.** Perfil de piloto: uma máquina com GPU, instalada em dias.
 - **E2.** Perfil de produção: servidor com GPU on-premise.
 - **E3.** Instalação offline documentada, com procedimento de atualização.
 - **E4 [a validar].** Dimensionamento por volume, fechado com o número real do piloto.
 
-### R13. Interface
+### M13. Interface
 
 - **E1.** Acesso por navegador.
 - **E2.** Documento e resposta lado a lado, com o trecho citado destacado.
@@ -186,21 +189,21 @@ Piso, não bateria de metas.
 - **E4.** Mensagem clara quando a base não cobre a pergunta.
 - **[Fase 2].** Complementos de Word e Outlook, acessibilidade completa, multilíngue, onboarding guiado.
 
-### R14. Conformidade básica
+### M14. Conformidade básica
 
 - **E1.** Registro de finalidade e base legal por fluxo de tratamento.
 - **E2.** Identificação de dado pessoal no acervo.
 - **E3.** Busca e eliminação por titular, com propagação ao índice e aos vetores.
 - **[Fase 2].** ROPA automático, DPIA, requisitos setoriais, ISO 27001/27701/42001, mapeamento de regulação de IA.
 
-### R15. Modos de implantação
+### M15. Modos de implantação
 
 - **E1.** Modo A: air-gapped integral, padrão de instalação e de contrato.
 - **E2.** Modo B: local com egresso auditado habilitável.
 - **E3.** Instalação, atualização e licenciamento offline em ambos.
 - **[Fase 2].** Nuvem privada dedicada, híbrido, portabilidade entre modos, contrato por modo.
 
-### R16. Caso de uso piloto
+### M16. Caso de uso piloto
 
 MVP sem caso concreto vira demonstração.
 
@@ -210,7 +213,7 @@ MVP sem caso concreto vira demonstração.
 - **E4.** Métrica simples: tempo de tarefa e taxa de aceitação da resposta.
 - **E5 [a validar].** Quais verticais entram no piloto: provavelmente uma entre jurídico e contábil-fiscal.
 
-### R17. Atualização periódica do corpus normativo
+### M17. Atualização periódica do corpus normativo
 
 O acervo do cliente tem o contrato, não tem a lei. Sem corpus normativo, a resposta cita o documento e para por aí.
 
@@ -288,12 +291,12 @@ Perguntas abertas, sem resposta pronta. Valem uma conversa cada.
 4. **Quem é o dono do projeto do lado do cliente?** Sem patrocinador com poder de liberar acervo e usuário, o piloto não começa.
 5. **Egresso está no piloto ou fica para a segunda onda?** Construir o broker é simples; construir a governança em volta, não. Pode ser mais saudável provar o modo offline primeiro.
 6. **Hardware: já existe ou será comprado?** Uma GPU disponível hoje muda o cronograma mais que qualquer requisito.
-7. **O corpus normativo entra no piloto, e com qual esfera?** É o item mais barato de entregar e o que mais muda a percepção de utilidade. Mas antes de expor citação de lei é preciso responder à E12 de R17: o texto da fonte é vigente ou original? Essa resposta define se a citação entra com ressalva ou entra firme.
+7. **O corpus normativo entra no piloto, e com qual esfera?** É o item mais barato de entregar e o que mais muda a percepção de utilidade. Mas antes de expor citação de lei é preciso responder à E12 de M17: o texto da fonte é vigente ou original? Essa resposta define se a citação entra com ressalva ou entra firme.
 
 ---
 
 ## 8. Como evoluir
 
-Quando o MVP passar nos critérios da seção 6, o catálogo completo volta a ser útil: cada requisito de R1 a R16 aqui mapeia para um ou mais requisitos de lá, e as especificações detalhadas já estão escritas. A seção 11 do catálogo traz o fatiamento em ondas, e a seção 12 as decisões que ainda estão em aberto.
+Quando o MVP passar nos critérios da seção 6, o catálogo completo volta a ser útil: cada requisito de M1 a M17 aqui mapeia para um ou mais requisitos de lá, e as especificações detalhadas já estão escritas. A seção 11 do catálogo traz o fatiamento em ondas, e a seção 12 as decisões que ainda estão em aberto.
 
 O caminho natural é: um caso de uso provado, um vertical com avaliação calibrada, e então expansão por vertical em vez de expansão por funcionalidade.

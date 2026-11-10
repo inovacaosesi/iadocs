@@ -18,19 +18,43 @@ Em uma frase: é possível trabalhar com o acervo sem expor o acervo, e quando a
 
 ## Como os documentos se organizam
 
+**Produto.** O que a plataforma precisa fazer.
+
 | Documento | Conteúdo | Quando usar |
 |---|---|---|
 | [README.md](README.md) | Este arquivo | Ponto de entrada |
-| [04-mvp-matriz.md](04-mvp-matriz.md) | Matriz do MVP: 17 requisitos e 90 especificações | Fase de discovery |
-| [03-registro-decisoes.md](03-registro-decisoes.md) | Quatro decisões estruturantes, como hipóteses de trabalho | Insumo de discussão |
-| [02-matriz-decisao-egresso.md](02-matriz-decisao-egresso.md) | Comportamento da consulta externa por classe de conteúdo | Ao desenhar o egresso |
-| [01-catalogo-requisitos.md](01-catalogo-requisitos.md) | Catálogo completo: 40 requisitos e 349 especificações | Fases 2 e 3 |
+| [04-mvp-matriz.md](docs/04-mvp-matriz.md) | Matriz do MVP: 17 requisitos e 90 especificações | Fase de discovery |
+| [03-registro-decisoes.md](docs/03-registro-decisoes.md) | Quatro decisões estruturantes, como hipóteses de trabalho | Insumo de discussão |
+| [02-matriz-decisao-egresso.md](docs/02-matriz-decisao-egresso.md) | Comportamento da consulta externa por classe de conteúdo | Ao desenhar o egresso |
+| [01-catalogo-requisitos.md](docs/01-catalogo-requisitos.md) | Catálogo completo: 40 requisitos e 349 especificações | Fases 2 e 3 |
+
+**Negócio.** Com que preço, com que time, por meio de quem, contra quem e para quem o produto se sustenta. Sete requisitos novos, R44 a R50, que formam o Bloco VII do catálogo.
+
+| Documento | Conteúdo | Quando usar |
+|---|---|---|
+| [05-analise-de-gaps.md](docs/05-analise-de-gaps.md) | Auditoria dos documentos 01 a 04: 16 gaps priorizados | Antes de decidir o que corrigir |
+| [06-precificacao-e-escala.md](docs/06-precificacao-e-escala.md) | R44 preço e empacotamento · R45 caminho para virar referência | Discutir preço e posicionamento |
+| [07-sustentacao.md](docs/07-sustentacao.md) | R46 com quantas pessoas se serve um cliente | Dimensionar equipe e SLA |
+| [08-parcerias.md](docs/08-parcerias.md) | R47 canal, integração e ecossistema | Buscar alavancagem de distribuição |
+| [09-infraestrutura.md](docs/09-infraestrutura.md) | R48 proposta enxuta, modular e elástica de infraestrutura local | Montar proposta de hardware |
+| [10-concorrentes.md](docs/10-concorrentes.md) | R49 quem cobra quanto, o que atacar e o que imitar | Posicionamento comercial |
+| [11-publico-alvo-e-margem.md](docs/11-publico-alvo-e-margem.md) | R50 segmentos, TAM/SAM/SOM e cenários de margem | Business case e qualificação de cliente |
+| [12-fontes-e-base-de-fatos.md](docs/12-fontes-e-base-de-fatos.md) | Anexo de evidência: todo número de mercado com fonte e data | Antes de citar qualquer número |
 
 O catálogo completo não é escopo. Ele existe para que nada importante seja esquecido quando o MVP crescer. Para o trabalho do dia a dia, use a matriz de MVP.
 
+Os documentos de negócio foram escritos sobre a mesma base de fatos, mas em paralelo, e divergem entre si em três parâmetros de custo — time mínimo, custo de sustentação por cliente e piso de contrato. A divergência está registrada e arbitrada na seção 7 do documento de gaps. Enquanto a decisão não for tomada, esses números devem ser lidos como faixa, não como compromisso.
+
 ## Convenção de indexação
 
-Requisitos são numerados como **R1, R2, ..., Rn**. As especificações de cada requisito são numeradas dentro dele como **E1, E2, ..., En**, então uma especificação só é identificável junto com o requisito que a contém.
+Existem duas séries de requisitos, e o identificador diz a qual documento ele pertence:
+
+- **M** é requisito da matriz de MVP, de **M1 a M17**, e só existe no arquivo 04.
+- **R** é requisito do catálogo, de **R1 a R40**, e dos documentos de negócio, de **R44 a R50**. R41 a R43 estão reservados às lacunas de áudio, vídeo e fraude documental registradas na seção 13 do catálogo.
+
+As duas séries são independentes, então "requisito 12" não existe: existe M12, que é infraestrutura, ou R12, que é classificação documental. Regra de escrita: o identificador sempre carrega o documento de origem, e uma referência a requisito de outro arquivo é qualificada, como *requisito R12 do catálogo*.
+
+As especificações de cada requisito são numeradas dentro dele como **E1, E2, ..., En**, então uma especificação só é identificável junto com o requisito que a contém.
 
 Referências entre documentos diferentes são escritas por extenso, no formato: conforme especificação E4 do requisito R38.
 
