@@ -2,7 +2,14 @@
 
 Documentação de requisitos para uma solução de IA local dedicada a documentos, com consulta externa auditada.
 
-O repositório contém apenas especificação. Não há código de produto aqui.
+## Protótipo do chat
+
+O [protótipo do IADocs](docs/prototipo/index.html) funciona offline em um único arquivo HTML, com respostas simuladas e trechos de um documento fictício.
+
+- **No computador**, salve o `index.html` e abra o arquivo no navegador.
+- **No celular**, transfira o mesmo arquivo e abra-o em um navegador que aceite arquivos HTML locais. Se o gerenciador de arquivos mostrar uma prévia, procure a opção **Abrir com** para escolher o navegador.
+
+Para testar, escolha **Qual é o prazo?**, toque ou clique em **Enviar** e depois em **Ver no documento** para conferir o trecho destacado.
 
 ## O problema
 

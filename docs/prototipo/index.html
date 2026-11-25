@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f1f6f4">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>IADocs · Pergunte aos documentos</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #17342c;
+      background: #f1f6f4;
+      color-scheme: light;
+      --paper: #fff;
+      --ink: #17342c;
+      --muted: #46645a;
+      --green: #075642;
+      --green-strong: #043e2f;
+      --mint: #e0f0e9;
+      --line: #c8dad2;
+      --control-line: #819e92;
+      --shadow: 0 12px 34px #1335290c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; min-width: 0; }
+    p, h1, h2, h3 { margin: 0; }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid #226f5b; outline-offset: 3px; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .site-header { background: var(--paper); border-bottom: 1px solid var(--line); }
+    .header-inner, .app {
+      width: min(69rem, calc(100% - 3rem));
+      margin-inline: auto;
+    }
+    .header-inner {
+      min-height: 4.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem 1rem;
+      padding-block: .6rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      font-size: 1.35rem;
+      font-weight: 760;
+      letter-spacing: -.045em;
+    }
+    .brand-icon, .assistant-icon {
+      display: grid;
+      place-items: center;
+      flex: none;
+      color: white;
+      background: var(--green);
+    }
+    .brand-icon { width: 2.45rem; height: 2.45rem; border-radius: .75rem; }
+    .assistant-icon { width: 2rem; height: 2rem; border-radius: .6rem; }
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .4rem .8rem;
+    }
+    .mode {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .43rem .7rem;
+      border-radius: .55rem;
+      background: var(--mint);
+      color: var(--green-strong);
+      font-size: .875rem;
+      font-weight: 650;
+    }
+    .icon {
+      position: relative;
+      display: inline-block;
+      width: 1.125rem;
+      height: 1.125rem;
+      flex: none;
+    }
+    .icon-page {
+      width: .86rem;
+      height: 1.04rem;
+      border: 1.6px solid currentColor;
+      border-radius: .19rem;
+    }
+    .icon-page::before {
+      content: "";
+      position: absolute;
+      inset: .25rem .14rem auto;
+      height: 1.5px;
+      background: currentColor;
+      box-shadow: 0 .24rem currentColor;
+    }
+    .icon-lock {
+      width: .78rem;
+      height: .6rem;
+      margin-top: .27rem;
+      border: 1.5px solid currentColor;
+      border-radius: .13rem;
+    }
+    .icon-lock::before {
+      content: "";
+      position: absolute;
+      width: .49rem;
+      height: .37rem;
+      top: -.39rem;
+      left: 50%;
+      translate: -50% 0;
+      border: 1.5px solid currentColor;
+      border-bottom: 0;
+      border-radius: .4rem .4rem 0 0;
+    }
+    .icon-clock { border: 1.6px solid currentColor; border-radius: 50%; }
+    .icon-clock::before {
+      content: "";
+      position: absolute;
+      inset: .17rem auto auto calc(50% - 1px);
+      width: .3rem;
+      height: .36rem;
+      border-left: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+    }
+    .icon-pin {
+      width: .83rem;
+      height: .83rem;
+      margin-top: -.16rem;
+      border: 1.6px solid currentColor;
+      border-radius: 50% 50% 50% 0;
+      rotate: -45deg;
+    }
+    .icon-pin::before {
+      content: "";
+      position: absolute;
+      inset: .17rem;
+      border: 1.4px solid currentColor;
+      border-radius: 50%;
+    }
+    .icon-mic::before, .icon-mic::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      translate: -50% 0;
+    }
+    .icon-mic::before {
+      top: 0;
+      width: .43rem;
+      height: .7rem;
+      border: 1.5px solid currentColor;
+      border-radius: .4rem;
+    }
+    .icon-mic::after {
+      top: .42rem;
+      width: .76rem;
+      height: .48rem;
+      border: 1.5px solid currentColor;
+      border-top: 0;
+      border-radius: 0 0 .55rem .55rem;
+    }
+    .icon-mic { background: linear-gradient(currentColor, currentColor) center bottom / 1.5px .3rem no-repeat; }
+
+    .app { padding-block: clamp(1.25rem, 4vw, 3rem) 1.25rem; }
+    .workspace { display: grid; gap: 1.25rem; align-items: start; }
+    .chat-column { min-width: 0; }
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(10rem, 29%);
+      align-items: center;
+      isolation: isolate;
+      min-height: 14.25rem;
+      overflow: hidden;
+      padding: clamp(1.5rem, 4.5vw, 3.15rem);
+      border: 1px solid #bad7ca;
+      border-radius: 1.45rem;
+      background: linear-gradient(110deg, #e5f3ed 10%, #cce7da 100%);
+    }
+    .hero h1 {
+      max-width: 20ch;
+      color: #103e31;
+      font-size: clamp(2.125rem, 4.7vw, 3.75rem);
+      font-weight: 740;
+      line-height: 1.06;
+      letter-spacing: -.06em;
+      text-wrap: balance;
+    }
+    .hero p { margin-top: .85rem; max-width: 43ch; color: #365b4e; font-size: 1.0625rem; line-height: 1.5; }
+    .hero-art { position: relative; width: min(100%, 14rem); height: 9.25rem; justify-self: center; }
+    .hero-art::before {
+      content: "";
+      position: absolute;
+      inset: -.9rem .65rem;
+      border: 1px solid #81b49e80;
+      border-radius: 50%;
+      rotate: -18deg;
+    }
+    .art-page {
+      position: absolute;
+      width: 5.4rem;
+      height: 7.1rem;
+      top: .9rem;
+      left: 25%;
+      border-radius: .7rem;
+      border: 1px solid #8fc0ab;
+    }
+    .art-back { background: #86b9a4; rotate: -19deg; translate: -.65rem -.1rem; }
+    .art-front {
+      display: grid;
+      align-content: center;
+      gap: .52rem;
+      padding: .95rem;
+      background: #f9fffc;
+      rotate: 9deg;
+      box-shadow: 0 8px 12px #14513a1a;
+    }
+    .art-front span { display: block; height: .24rem; border-radius: .3rem; background: #94bcab; }
+    .art-front span:first-child { width: 55%; background: #397c66; }
+    .art-front span:last-child { width: 75%; }
+    .art-chat {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      right: 6%;
+      bottom: .4rem;
+      width: 3.55rem;
+      height: 2.8rem;
+      border-radius: .8rem .8rem .8rem .18rem;
+      color: white;
+      background: var(--green);
+      font-size: 1.45rem;
+      font-weight: 720;
+      rotate: -9deg;
+    }
+
+    .suggestions { margin-block: 1.8rem 1.3rem; }
+    .suggestions h2 { margin-bottom: .75rem; font-size: 1.1rem; font-weight: 680; }
+    .suggestion-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; }
+    .suggestion {
+      display: flex;
+      gap: .65rem;
+      align-items: center;
+      padding: .65rem .7rem;
+      min-height: 3.85rem;
+      border: 1px solid var(--line);
+      border-radius: .85rem;
+      background: var(--paper);
+      color: var(--ink);
+      text-align: left;
+      line-height: 1.25;
+      font-weight: 630;
+    }
+    .suggestion:hover { background: #f7fcf9; border-color: var(--control-line); }
+    .suggestion-icon {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: .62rem;
+      color: var(--green);
+      background: var(--mint);
+    }
+
+    .composer, .source-panel, .assistant-message {
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .composer { padding: clamp(.95rem, 2.4vw, 1.35rem); border-radius: 1.15rem; box-shadow: var(--shadow); }
+    .composer label { display: block; margin-bottom: .5rem; font-weight: 680; }
+    .composer textarea {
+      display: block;
+      width: 100%;
+      min-height: 4.6rem;
+      max-height: 14rem;
+      padding: .75rem .85rem;
+      border: 1px solid var(--control-line);
+      border-radius: .65rem;
+      background: #fbfdfc;
+      color: var(--ink);
+      line-height: 1.45;
+      resize: vertical;
+    }
+    .composer textarea::placeholder { color: #536a62; }
+    .composer textarea[aria-invalid="true"] { border-color: #a12829; }
+    .composer-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; margin-top: .75rem; }
+    .draft-actions, .response-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .65rem; }
+    .button {
+      display: inline-flex;
+      min-height: 2.75rem;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .5rem .75rem;
+      border: 1px solid transparent;
+      border-radius: .6rem;
+      background: transparent;
+      color: var(--green);
+      text-align: center;
+      font-size: .9375rem;
+      font-weight: 660;
+      line-height: 1.3;
+    }
+    .button:hover { background: var(--mint); }
+    .button.send { min-width: 7.8rem; margin-left: auto; background: var(--green); color: white; }
+    .button.send:hover { background: var(--green-strong); }
+    .button.outline { border-color: var(--control-line); }
+    .button[aria-expanded="true"] { background: var(--mint); }
+    .composer-note { color: var(--muted); font-size: .9375rem; line-height: 1.4; }
+    .composer-note:not(:empty) { margin-top: .65rem; }
+    .error { margin-top: .55rem; color: #952226; font-size: .9375rem; font-weight: 620; }
+    .footer { margin-top: 1.2rem; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+
+    .conversation h1 { font-size: clamp(1.65rem, 4vw, 2.15rem); letter-spacing: -.04em; margin-bottom: 1rem; }
+    .messages, .turn { display: grid; gap: .85rem; }
+    .messages { margin-bottom: 1rem; }
+    .turn + .turn { margin-top: .65rem; }
+    .user-message {
+      justify-self: end;
+      width: fit-content;
+      max-width: 90%;
+      min-width: min(13rem, 100%);
+      padding: .45rem .9rem .8rem;
+      border-radius: .95rem .95rem .2rem .95rem;
+      background: var(--mint);
+    }
+    .user-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 .45rem; }
+    .speaker { font-weight: 720; }
+    .edit-question { padding-inline: .5rem; font-size: .875rem; }
+    .question, .reply { overflow-wrap: anywhere; white-space: pre-wrap; }
+    .question { line-height: 1.5; }
+    .assistant-message { display: flex; align-items: start; gap: .75rem; padding: clamp(.85rem, 2.4vw, 1.25rem); border-radius: 1rem; }
+    .response-content { min-width: 0; }
+    .reply { margin-top: .35rem; font-size: 1.125rem; line-height: 1.5; }
+    .citation { margin-top: .5rem; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+    .response-actions { margin-top: .7rem; }
+
+    .source-panel { padding: clamp(.85rem, 2.4vw, 1.2rem); border-radius: 1.1rem; box-shadow: var(--shadow); }
+    .source-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem; margin-bottom: .8rem; }
+    .source-heading h2 { font-size: 1.15rem; font-weight: 740; }
+    .source-paper { padding: clamp(.85rem, 2.15vw, 1.2rem); border: 1px solid var(--line); border-radius: .75rem; background: #fcfefc; }
+    .source-meta { color: var(--muted); font-size: .875rem; line-height: 1.45; }
+    .source-paper h3 { margin-block: .2rem .85rem; font-size: 1.12rem; line-height: 1.3; }
+    .source-paper p:not(.source-meta) { font-size: 1rem; line-height: 1.55; }
+    .source-paper p + p { margin-top: .65rem; }
+    .source-paper mark { background: #ffec9d; color: #302a15; box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: .06em .12em; }
+
+    @media (min-width: 55rem) {
+      .workspace.has-source { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+      .source-dock { position: sticky; top: 1.15rem; }
+    }
+    @media (max-width: 45rem) {
+      .header-inner, .app { width: calc(100% - 2rem); }
+      .header-inner { min-height: 3.85rem; }
+      .hero { min-height: 10.35rem; padding: 1.4rem; grid-template-columns: 1fr; }
+      .hero h1 { text-wrap: initial; }
+      .hero-art { display: none; }
+      .suggestions { margin-block: 1.25rem 1rem; }
+      .suggestion-list { grid-template-columns: 1fr; gap: .48rem; }
+      .suggestion { min-height: 3.2rem; padding-block: .42rem; }
+      .suggestion-icon { width: 2.05rem; height: 2.05rem; }
+    }
+    @media (max-width: 25rem) {
+      .header-actions { gap: .2rem .4rem; }
+      .header-actions .button { padding-inline: .3rem; }
+      .header-inner:has(.new-chat:not([hidden])) .header-actions { width: 100%; justify-content: space-between; }
+      .mode { padding-inline: .55rem; }
+      .composer-actions .button { padding-inline: .55rem; }
+      .button.send { min-width: 5.7rem; }
+      .assistant-message { gap: .5rem; }
+      .assistant-icon { width: 1.7rem; height: 1.7rem; }
+    }
+    @media (forced-colors: active) {
+      .brand-icon, .assistant-icon, .button.send, .suggestion-icon { border: 1px solid ButtonText; }
+      .source-paper mark { background: Highlight; color: HighlightText; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand"><span class="brand-icon" aria-hidden="true"><span class="icon icon-page"></span></span>IADocs</div>
+      <div class="header-actions">
+        <span class="mode"><span class="icon icon-lock" aria-hidden="true"></span>Só nos documentos</span>
+        <button class="button new-chat" id="new-chat" type="button" hidden>Nova conversa</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <div class="workspace" id="workspace">
+      <div class="chat-column">
+        <section id="welcome" aria-labelledby="welcome-title">
+          <div class="hero">
+            <div>
+              <h1 id="welcome-title" tabindex="-1">O que você quer saber?</h1>
+              <p>Faça uma pergunta sobre o documento de exemplo.</p>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="art-page art-back"></div>
+              <div class="art-page art-front"><span></span><span></span><span></span></div>
+              <div class="art-chat">?</div>
+            </div>
+          </div>
+          <section class="suggestions" aria-labelledby="suggestions-title">
+            <h2 id="suggestions-title">Experimente uma pergunta</h2>
+            <div class="suggestion-list" id="suggestions"></div>
+          </section>
+        </section>
+
+        <section class="conversation" id="conversation" aria-labelledby="conversation-title" hidden>
+          <h1 id="conversation-title">Sua conversa</h1>
+          <div class="messages" id="messages"></div>
+        </section>
+
+        <form class="composer" id="composer" novalidate>
+          <label for="question" id="question-label">Sua pergunta</label>
+          <textarea id="question" rows="2" maxlength="500" placeholder="Escreva aqui o que você quer saber" required></textarea>
+          <p class="error" id="question-error" role="alert" hidden>Escreva uma pergunta para enviar.</p>
+          <div class="composer-actions">
+            <div class="draft-actions">
+              <button class="button" id="demo-dictation" type="button" aria-describedby="dictation-description"><span class="icon icon-mic" aria-hidden="true"></span>Testar ditado</button>
+              <span class="sr-only" id="dictation-description">Insere uma frase de exemplo sem usar o microfone.</span>
+              <button class="button" id="cancel-edit" type="button" hidden>Cancelar edição</button>
+            </div>
+            <button class="button send" id="send" type="submit">Enviar</button>
+          </div>
+          <p class="composer-note" id="composer-note" role="status"></p>
+        </form>
+      </div>
+
+      <div class="source-dock" id="source-dock" hidden>
+        <aside class="source-panel" id="source-panel" aria-labelledby="source-title" tabindex="-1" hidden>
+          <div class="source-heading">
+            <h2 id="source-title">Trecho do documento</h2>
+            <button class="button" id="close-source" type="button">Voltar à resposta</button>
+          </div>
+          <div class="source-paper">
+            <p class="source-meta" id="source-meta"></p>
+            <h3 id="source-section"></h3>
+            <p id="source-context"></p>
+            <p><span class="sr-only">Trecho destacado. </span><mark id="source-excerpt"></mark></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <footer class="footer">Demonstração com documento fictício e respostas simuladas.</footer>
+    <noscript><p class="error">Ative o JavaScript no navegador para testar a conversa.</p></noscript>
+  </main>
+
+  <template id="suggestion-template">
+    <button class="suggestion" type="button"><span class="suggestion-icon" aria-hidden="true"><span class="icon"></span></span><span class="suggestion-text"></span></button>
+  </template>
+  <template id="turn-template">
+    <article class="turn">
+      <div class="user-message">
+        <div class="user-meta"><span class="speaker">Você</span><button class="button edit-question" type="button">Editar pergunta</button></div>
+        <p class="question"></p>
+      </div>
+      <div class="assistant-message" role="group" aria-label="Resposta do IADocs" tabindex="-1">
+        <span class="assistant-icon" aria-hidden="true"><span class="icon icon-page"></span></span>
+        <div class="response-content">
+          <p class="speaker" aria-hidden="true">IADocs</p>
+          <p class="reply"></p>
+          <p class="citation"></p>
+          <div class="response-actions">
+            <button class="button outline view-source" type="button" aria-expanded="false" aria-controls="source-panel"><span class="icon icon-page" aria-hidden="true"></span>Ver no documento</button>
+            <button class="button simplify" type="button">Explicar mais simples</button>
+            <button class="button outline try-again" type="button" hidden>Tentar outra pergunta</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    'use strict';
+
+    const documentName = 'Guia de solicitações';
+    const examples = [
+      {
+        question: 'Qual é o prazo?',
+        icon: 'icon-clock',
+        patterns: [
+          /^qual (?:e )?o prazo(?: de entrega(?: do pedido)?| para entregar(?: (?:o|meu) pedido)?)?$/,
+          /^ate quando(?: (?:posso|devo) entregar(?: (?:o|meu) pedido)?)?$/,
+          /^(?:que dia|que horas) (?:posso|devo) entregar(?: (?:o|meu) pedido)?$/
+        ],
+        answer: 'Entregue o pedido até sexta-feira, às 17h.',
+        simple: 'Pode entregar até as 5 da tarde de sexta-feira.',
+        page: 2,
+        section: 'Prazo de entrega',
+        context: 'A recepção recebe pedidos de segunda a sexta-feira.',
+        excerpt: 'Os pedidos desta semana devem ser entregues até sexta-feira, às 17h.'
+      },
+      {
+        question: 'Onde entrego o pedido?',
+        icon: 'icon-pin',
+        patterns: [
+          /^onde (?:entrego|envio|levo|(?:posso|devo) (?:entregar|enviar|levar))(?: (?:o |meu )?pedido)?$/,
+          /^qual (?:e )?o local de entrega(?: do pedido)?$/
+        ],
+        answer: 'Entregue o pedido na recepção da unidade.',
+        simple: 'Leve seu pedido até a recepção.',
+        page: 3,
+        section: 'Onde entregar o pedido',
+        context: 'Ao chegar à unidade, siga as placas que indicam a recepção.',
+        excerpt: 'A entrega do pedido é feita na recepção da unidade.'
+      },
+      {
+        question: 'Quais documentos preciso levar?',
+        icon: 'icon-page',
+        patterns: [
+          /^(?:quais|que) documentos (?:preciso(?: levar)?|devo levar|levo)(?: para o pedido| na entrega)?$/,
+          /^o que (?:eu )?(?:preciso levar|devo levar|levo)(?: para entregar o pedido| para o pedido| na entrega)?$/
+        ],
+        answer: 'Leve um documento com foto e o formulário preenchido.',
+        simple: 'Leve um documento com foto. Leve também o formulário já preenchido.',
+        page: 1,
+        section: 'O que levar',
+        context: 'Separe os itens antes de ir até a unidade.',
+        excerpt: 'Para entregar o pedido, apresente um documento com foto e o formulário preenchido.'
+      }
+    ];
+
+    const welcome = document.getElementById('welcome');
+    const welcomeTitle = document.getElementById('welcome-title');
+    const conversation = document.getElementById('conversation');
+    const messages = document.getElementById('messages');
+    const composer = document.getElementById('composer');
+    const questionInput = document.getElementById('question');
+    const questionLabel = document.getElementById('question-label');
+    const questionError = document.getElementById('question-error');
+    const composerNote = document.getElementById('composer-note');
+    const newChat = document.getElementById('new-chat');
+    const sendButton = document.getElementById('send');
+    const cancelEdit = document.getElementById('cancel-edit');
+    const workspace = document.getElementById('workspace');
+    const sourceDock = document.getElementById('source-dock');
+    const sourcePanel = document.getElementById('source-panel');
+    const sourceMeta = document.getElementById('source-meta');
+    const sourceSection = document.getElementById('source-section');
+    const sourceContext = document.getElementById('source-context');
+    const sourceExcerpt = document.getElementById('source-excerpt');
+    const turnTemplate = document.getElementById('turn-template');
+    const suggestionTemplate = document.getElementById('suggestion-template');
+    const suggestions = document.getElementById('suggestions');
+    const desktopLayout = window.matchMedia('(min-width: 55rem)');
+    const touchPointer = window.matchMedia('(pointer: coarse)');
+
+    let editingTurn = null;
+    let openingTurn = null;
+    let draftBeforeEdit = '';
+    let noteBeforeEdit = '';
+
+    function clearError() {
+      questionError.hidden = true;
+      questionInput.removeAttribute('aria-invalid');
+      questionInput.removeAttribute('aria-describedby');
+    }
+
+    function setDraft(text, note = '', focusTarget = questionInput) {
+      clearError();
+      questionInput.value = text;
+      composerNote.textContent = note;
+      questionInput.setSelectionRange(text.length, text.length);
+      focusTarget.focus();
+    }
+
+    function showConversation() {
+      welcome.hidden = true;
+      conversation.hidden = false;
+      newChat.hidden = false;
+    }
+
+    function finishEdit() {
+      editingTurn = null;
+      draftBeforeEdit = '';
+      noteBeforeEdit = '';
+      questionLabel.textContent = 'Sua pergunta';
+      sendButton.textContent = 'Enviar';
+      cancelEdit.hidden = true;
+    }
+
+    function beginEdit(turn) {
+      if (!editingTurn) {
+        draftBeforeEdit = questionInput.value;
+        noteBeforeEdit = composerNote.textContent;
+      }
+      editingTurn = turn;
+      questionLabel.textContent = 'Edite sua pergunta';
+      sendButton.textContent = 'Enviar edição';
+      cancelEdit.hidden = false;
+      setDraft(turn.question.textContent);
+    }
+
+    function positionSource() {
+      if (!openingTurn) return;
+      const wasFocused = sourcePanel.contains(document.activeElement);
+      sourceDock.hidden = !desktopLayout.matches;
+      if (desktopLayout.matches) {
+        sourceDock.append(sourcePanel);
+      } else {
+        openingTurn.response.after(sourcePanel);
+      }
+      if (wasFocused) sourcePanel.focus();
+    }
+
+    function hideSource(restoreFocus = false) {
+      if (!openingTurn) return;
+      const trigger = openingTurn.viewSource;
+      trigger.setAttribute('aria-expanded', 'false');
+      openingTurn = null;
+      sourcePanel.hidden = true;
+      sourceDock.append(sourcePanel);
+      sourceDock.hidden = true;
+      workspace.classList.remove('has-source');
+      if (restoreFocus) trigger.focus();
+    }
+
+    function toggleSource(turn) {
+      if (openingTurn === turn) {
+        hideSource(true);
+        return;
+      }
+      hideSource();
+      openingTurn = turn;
+      const { page, section, context, excerpt } = turn.example;
+      sourceMeta.textContent = `${documentName} · Página ${page} de ${examples.length}`;
+      sourceSection.textContent = section;
+      sourceContext.textContent = context;
+      sourceExcerpt.textContent = excerpt;
+      turn.viewSource.setAttribute('aria-expanded', 'true');
+      workspace.classList.add('has-source');
+      positionSource();
+      sourcePanel.hidden = false;
+      sourcePanel.focus();
+    }
+
+    function findExample(question) {
+      const normalized = question.toLowerCase().normalize('NFD')
+        .replace(/\p{M}/gu, '')
+        .replace(/[?!.]+$/u, '')
+        .replace(/\s+/gu, ' ')
+        .trim();
+      return examples.find(example => example.patterns.some(pattern => pattern.test(normalized)));
+    }
+
+    function setReply(turn, text) {
+      turn.reply.textContent = text;
+      turn.response.setAttribute('aria-label', `Resposta do IADocs. ${text}`);
+    }
+
+    function updateTurn(turn, question) {
+      turn.example = findExample(question);
+      turn.question.textContent = question;
+      setReply(turn, turn.example?.answer ?? 'Não encontrei isso nos documentos.');
+      turn.citation.textContent = turn.example ? `${documentName} · Página ${turn.example.page}` : '';
+      turn.citation.hidden = !turn.example;
+      turn.viewSource.hidden = !turn.example;
+      turn.simplify.hidden = !turn.example;
+      turn.isSimple = false;
+      turn.simplify.textContent = 'Explicar mais simples';
+      turn.tryAgain.hidden = Boolean(turn.example);
+    }
+
+    function createTurn(question) {
+      const element = turnTemplate.content.firstElementChild.cloneNode(true);
+      const turn = {
+        question: element.querySelector('.question'),
+        response: element.querySelector('.assistant-message'),
+        reply: element.querySelector('.reply'),
+        citation: element.querySelector('.citation'),
+        viewSource: element.querySelector('.view-source'),
+        simplify: element.querySelector('.simplify'),
+        tryAgain: element.querySelector('.try-again')
+      };
+
+      const editButton = element.querySelector('.edit-question');
+      turn.editButton = editButton;
+      editButton.addEventListener('click', () => beginEdit(turn));
+      turn.viewSource.addEventListener('click', () => toggleSource(turn));
+      turn.simplify.addEventListener('click', () => {
+        turn.isSimple = !turn.isSimple;
+        const text = turn.isSimple ? turn.example.simple : turn.example.answer;
+        setReply(turn, text);
+        turn.simplify.textContent = turn.isSimple ? 'Ver resposta original' : 'Explicar mais simples';
+        document.getElementById('reply-status').textContent = text;
+      });
+      turn.tryAgain.addEventListener('click', () => beginEdit(turn));
+
+      updateTurn(turn, question);
+      messages.append(element);
+      return turn;
+    }
+
+    for (const example of examples) {
+      const suggestion = suggestionTemplate.content.firstElementChild.cloneNode(true);
+      suggestion.querySelector('.icon').classList.add(example.icon);
+      suggestion.querySelector('.suggestion-text').textContent = example.question;
+      suggestion.addEventListener('click', event => {
+        const focusTarget = touchPointer.matches && event.detail > 0 ? sendButton : questionInput;
+        setDraft(example.question, '', focusTarget);
+      });
+      suggestions.append(suggestion);
+    }
+
+    questionInput.addEventListener('input', () => {
+      clearError();
+      composerNote.textContent = '';
+    });
+
+    document.getElementById('demo-dictation').addEventListener('click', () => {
+      const phrase = 'Até quando posso entregar o pedido?';
+      const draft = questionInput.value.trim();
+      if (draft && draft !== phrase) {
+        composerNote.textContent = 'O ditado de exemplo usa o campo vazio. Sua pergunta foi mantida.';
+        questionInput.focus();
+        return;
+      }
+      setDraft(phrase, 'Este é um ditado de exemplo. Você pode editar antes de enviar.');
+    });
+
+    cancelEdit.addEventListener('click', () => {
+      const { editButton } = editingTurn;
+      setDraft(draftBeforeEdit, noteBeforeEdit, editButton);
+      finishEdit();
+    });
+
+    composer.addEventListener('submit', event => {
+      event.preventDefault();
+      const question = questionInput.value.trim();
+      if (!question) {
+        questionError.hidden = false;
+        questionInput.setAttribute('aria-invalid', 'true');
+        questionInput.setAttribute('aria-describedby', 'question-error');
+        questionInput.focus();
+        return;
+      }
+
+      hideSource();
+      showConversation();
+      const turn = editingTurn ?? createTurn(question);
+      const nextDraft = draftBeforeEdit;
+      const nextNote = noteBeforeEdit;
+      if (editingTurn) updateTurn(turn, question);
+      finishEdit();
+      clearError();
+      questionInput.value = nextDraft;
+      composerNote.textContent = nextNote;
+      turn.response.focus();
+    });
+
+    newChat.addEventListener('click', () => {
+      hideSource();
+      finishEdit();
+      clearError();
+      composer.reset();
+      composerNote.textContent = '';
+      messages.replaceChildren();
+      conversation.hidden = true;
+      newChat.hidden = true;
+      welcome.hidden = false;
+      welcomeTitle.focus();
+    });
+
+    document.getElementById('close-source').addEventListener('click', () => hideSource(true));
+    sourcePanel.addEventListener('keydown', event => {
+      if (event.key === 'Escape') hideSource(true);
+    });
+    desktopLayout.addEventListener('change', positionSource);
+  </script>
+  <div class="sr-only" id="reply-status" role="status" aria-atomic="true"></div>
+</body>
+</html>
